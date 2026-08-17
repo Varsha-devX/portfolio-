@@ -1,10 +1,14 @@
 @import 'tailwindcss';
 
 :root {
-  color: #111827;
-  background: #f5f3ef;
-  font-family: Inter, 'Segoe UI', sans-serif;
+  color: #0f172a;
+  background: #f8f7f4;
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
+}
+
+code, kbd, samp, pre, .font-mono {
+  font-family: 'JetBrains Mono', monospace;
 }
 
 html {
@@ -14,34 +18,80 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at top, rgba(15, 23, 42, 0.04), transparent 30%),
-    #f5f3ef;
-  color: #111827;
+  background-color: #f8f7f4;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(15, 23, 42, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 85% 65%, rgba(15, 23, 42, 0.03) 0%, transparent 40%);
+  color: #0f172a;
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100vh;
 }
 
-@layer utilities {
-  .glass-panel {
-    @apply border border-black/10 bg-white/70 backdrop-blur-sm shadow-[0_18px_40px_rgba(9,9,9,0.06)];
-  }
+/* Custom Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.04), 0 4px 6px -2px rgba(15, 23, 42, 0.02);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
+.glass-panel:hover {
+  border-color: rgba(203, 213, 225, 1);
+  box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.07), 0 8px 10px -4px rgba(15, 23, 42, 0.03);
+}
+
+.glass-panel-interactive {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+.section-shell {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 72rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
   .section-shell {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
-  }
-
-  .section-spacing {
-    @apply py-20 md:py-28;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
+@media (min-width: 1024px) {
+  .section-shell {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+.section-spacing {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    padding-top: 6.5rem;
+    padding-bottom: 6.5rem;
+  }
+}
+
+/* Animations */
 @keyframes fadeUp {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   100% {
     opacity: 1;
@@ -49,30 +99,86 @@ body {
   }
 }
 
-.animate-fade-up {
-  animation: fadeUp 0.7s ease-out forwards;
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(0.97);
+  }
 }
 
+.animate-fade-up {
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s ease-in-out infinite;
+}
+
+/* Nav Link Underline animation */
 .nav-link::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -7px;
+  bottom: -4px;
   width: 100%;
-  height: 1px;
-  background: #111827;
+  height: 2px;
+  background: #0f172a;
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.18s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 9999px;
 }
 
 .nav-link:hover::after,
-.nav-link:focus-visible::after {
+.nav-link.active::after {
   transform: scaleX(1);
 }
 
-@media (max-width: 767px) {
-  .section-shell {
-    max-width: 100%;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f0ec;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Interactive Badge Pulse */
+.live-dot {
+  position: relative;
+}
+
+.live-dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: inherit;
+  opacity: 0.7;
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: translate(-50%, -50%) scale(2.2);
+    opacity: 0;
   }
 }
