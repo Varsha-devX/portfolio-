@@ -42,7 +42,7 @@ export function Contact({ showToast }) {
     setSubmitError(null);
 
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${portfolio.contact.email}`, {
+      const response = await fetch('https://formsubmit.co/ajax/c39dc5be12117303f7af69dfc7857cb2', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,6 +53,7 @@ export function Contact({ showToast }) {
           email: formState.email.trim(),
           message: formState.message.trim(),
           _subject: `New Portfolio Message from ${formState.name.trim()}`,
+          _replyto: formState.email.trim(),
           _template: 'table',
           _captcha: 'false',
         }),
