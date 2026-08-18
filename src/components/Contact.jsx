@@ -61,7 +61,7 @@ export function Contact({ showToast }) {
 
       const result = await response.json();
 
-      if (response.ok && (result.success === 'true' || result.success === true || result.message)) {
+      if (response.ok && (result.success === true || result.success === 'true')) {
         try {
           confetti({
             particleCount: 60,
@@ -77,6 +77,8 @@ export function Contact({ showToast }) {
         if (showToast) {
           showToast(`Message sent successfully to ${portfolio.contact.email}!`, 'success');
         }
+      } else if (result.message && result.message.toLowerCase().includes('activation')) {
+        throw new Error("One-time activation required: Please check your Gmail (varsh6362@gmail.com) and click the blue 'Activate Form' button.");
       } else {
         throw new Error(result.message || 'Failed to deliver message via form service.');
       }
@@ -84,7 +86,7 @@ export function Contact({ showToast }) {
       console.error('Contact Form Submission Error:', err);
       setSubmitError(err.message || 'An error occurred while sending your message.');
       if (showToast) {
-        showToast('Could not send message automatically. Please use the direct email link.', 'error');
+        showToast(err.message || 'Could not send message automatically. Please use the direct email link.', 'error');
       }
     } finally {
       setIsSubmitting(false);
