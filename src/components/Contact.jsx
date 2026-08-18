@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { portfolio } from '../data/portfolio';
-import { Mail, Copy, Check, MapPin, ArrowUpRight, Sparkles, Send } from 'lucide-react';
+import { Mail, Copy, Check, MapPin, ArrowUpRight, Send } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export function Contact({ showToast }) {
@@ -152,28 +152,15 @@ export function Contact({ showToast }) {
         </div>
       </div>
 
-      {/* Location & Availability Banner */}
-      <div className="mt-8 rounded-3xl border border-slate-200/90 bg-white/90 p-6 sm:p-7 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700 shrink-0">
-            <MapPin className="h-5 w-5" />
-          </div>
-          <div>
-            <div className="text-xs font-bold text-slate-900">{portfolio.location}</div>
-            <div className="text-xs text-slate-500 flex items-center gap-1.5 mt-0.5">
-              <Sparkles className="h-3.5 w-3.5 text-amber-500" />
-              <span>{portfolio.contact.availability}</span>
-            </div>
-          </div>
+      {/* Location */}
+      <div className="mt-8 rounded-3xl border border-slate-200/90 bg-white/90 p-5 sm:p-6 shadow-xs flex items-center gap-3.5">
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 shrink-0">
+          <MapPin className="h-5 w-5" />
         </div>
-
-        <a
-          href={`mailto:${portfolio.contact.email}`}
-          className="rounded-full bg-slate-900 px-5 py-2.5 text-xs font-bold text-white transition hover:bg-slate-800 active:scale-95 inline-flex items-center gap-2 shrink-0"
-        >
-          <Mail className="h-3.5 w-3.5" />
-          <span>Email Varsha Directly</span>
-        </a>
+        <div>
+          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Location</div>
+          <div className="text-sm font-bold text-slate-900">{portfolio.location}</div>
+        </div>
       </div>
     </section>
   );
