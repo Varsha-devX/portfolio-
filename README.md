@@ -1,2 +1,2 @@
 # portfolio-
-portfolio-dwrq-224i80s3d-varsha-devxs-projects.vercel.app
+https://portfolio-git-main-varsha-devxs-projects.vercel.app/
